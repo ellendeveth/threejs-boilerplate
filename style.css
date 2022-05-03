@@ -1,0 +1,77 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html,
+body
+{
+    overflow: hidden;
+}
+
+.myCanvas
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+.planets{
+   
+    background-color: #000;
+    z-index: 10;
+    background-color: white;
+    border-radius: 5px;
+    border-style: 0;
+    border: none;
+    outline: none;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+.generate{
+   display: flex;
+   align-self: flex-start; 
+    background-color: #721bd9;
+    color: white;
+    z-index: 10;
+    border-radius: 5px;
+    border-style: 0;
+    border: none;
+    outline: none;
+    padding: 12px;
+    cursor: url(rocket.svg), auto;
+    margin-bottom: 8px;
+}
+.generate:hover{
+    color: #721bd9;
+    background-color: white;
+}
+.form-group{
+    display: flex;
+    flex-direction: row;
+    color: white;
+
+}
+.panel{
+ 
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 10px;
+    left: 10px;
+    
+
+}
+.checkbox{
+    margin-right: 8px;
+    border-radius: 4px;
+    padding: 80px;
+    border: none;
+    border-style: none;
+    outline: none;
+    stroke: none;
+    
+}
+
