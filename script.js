@@ -4,6 +4,8 @@ const canvas = document.querySelector('.myCanvas');
 //init scene
 const scene = new THREE.Scene();
 
+//textureloader
+const textureLoader = new THREE.TextureLoader()
 
 //array with paths to textures
 const textureList = [
@@ -16,6 +18,27 @@ const textureList = [
     'textures/neptune.jpg',
     'textures/venus.jpg'
 ]
+
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32)
+
+const makeSphere = () => {
+    let randomInt = Math.floor(Math.random() * textureList.length)
+    let randomTexture = textureLoader.load(textureList[randomInt])
+    console.log(randomTexture)
+
+    //const sphereMaterial = new THREE.MeshBasicMaterial({color: 'red', wireframe:true})
+    const sphereMaterial = new THREE.MeshBasicMaterial({map: randomTexture})
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+
+    sphere.position.x = (Math.random()-0.5) * 50
+    sphere.position.y = (Math.random()-0.5) * 50
+    sphere.position.z = (Math.random()-0.5) * 50   
+    
+    sphere.rotation.x = Math.random() * Math.PI // math.PI is een halve rotatie
+    sphere.rotation.y = Math.random() * Math.PI
+
+    scene.add(sphere)
+}
 
 
 /*
@@ -78,21 +101,45 @@ controls.enableDamping = true
 
 //generating the universe
 document.querySelector(".generate").addEventListener("click", (e) => {
+    let planetNum = document.querySelector(".planets").value;
+    document.querySelector(".planets").value =""
+    //console.log(planetNum)
 
+    while(scene.children.length > 0){
+        scene.remove(scene.children[0])
+    }
+
+    for(let i = 0; i <= planetNum; i++){
+        makeSphere()
+    }
    
 })
 
 //event listener for the canvas
 canvas.addEventListener('click', (e) => {
-
+    makeSphere()
  
 })
 
 
 //checkbox eventlistener
+let animationId
 document.querySelector("#checkbox").addEventListener("change", (e) => {
 
-
+    if(e.target.checked){
+        console.log('start')
+        const moveCamera = () => {
+            const elapsedTime = clock.getElapsedTime();
+            //console.log(elapsedTime)
+            camera.position.x += Math.cos(elapsedTime)
+            camera.position.y += Math.sin(elapsedTime)
+            animationId = window.requestAnimationFrame(moveCamera)
+        }
+        moveCamera()
+    } else {
+        console.log('stop')
+        window.cancelAnimationFrame(animationId)
+    }
     
 })
 
